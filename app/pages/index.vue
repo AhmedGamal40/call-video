@@ -30,12 +30,6 @@
               icon="i-heroicons-user-circle"
               size="lg"
             />
-            <UInput 
-              v-model="customerRoom" 
-              placeholder="رقم الغرفة (اختياري)" 
-              icon="i-heroicons-key"
-              size="lg"
-            />
             
             <UButton 
               block 
@@ -122,12 +116,11 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter();
-const customerName = ref('');
-const customerRoom = ref(`room_${Date.now()}`);
-const agentName = ref('');
-const agentRoom = ref('');
-const loading = ref(false);
+const router = useRouter()
+const customerName = ref('')
+const agentName = ref('')
+const agentRoom = ref('')
+const loading = ref(false)
 
 const joinAsCustomer = async () => {
   if (!customerName.value) {
@@ -135,21 +128,18 @@ const joinAsCustomer = async () => {
       title: 'خطأ',
       description: 'الرجاء إدخال اسمك',
       color: 'red'
-    });
-    return;
+    })
+    return
   }
 
-  loading.value = true;
+  loading.value = true
   
-  // حفظ البيانات في LocalStorage للاستخدام في الصفحة التالية
-  localStorage.setItem('userRole', 'customer');
-  localStorage.setItem('userName', customerName.value);
-  localStorage.setItem('roomId', customerRoom.value || `room_${Date.now()}`);
+  localStorage.setItem('userRole', 'customer')
+  localStorage.setItem('userName', customerName.value)
   
-  // الانتقال لصفحة العميل
-  await navigateTo('/customer');
-  loading.value = false;
-};
+  await navigateTo('/customer')
+  loading.value = false
+}
 
 const joinAsAgent = async () => {
   if (!agentName.value || !agentRoom.value) {
@@ -157,19 +147,17 @@ const joinAsAgent = async () => {
       title: 'خطأ',
       description: 'الرجاء إدخال اسم الوكيل ورقم الغرفة',
       color: 'red'
-    });
-    return;
+    })
+    return
   }
 
-  loading.value = true;
+  loading.value = true
   
-  // حفظ البيانات في LocalStorage
-  localStorage.setItem('userRole', 'agent');
-  localStorage.setItem('userName', agentName.value);
-  localStorage.setItem('roomId', agentRoom.value);
+  localStorage.setItem('userRole', 'agent')
+  localStorage.setItem('userName', agentName.value)
+  localStorage.setItem('roomId', agentRoom.value)
   
-  // الانتقال لصفحة الوكيل
-  await navigateTo('/agent');
-  loading.value = false;
-};
+  await navigateTo('/agent')
+  loading.value = false
+}
 </script>

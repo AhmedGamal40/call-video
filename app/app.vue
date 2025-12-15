@@ -1,7 +1,7 @@
 <template>
   <UApp>
     <NuxtPage />
-    <UNotifications />
+    <!-- <UNotifications /> -->
   </UApp>
 </template>
 
